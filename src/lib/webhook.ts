@@ -39,7 +39,7 @@ export function verifyWebhookSignature(
     return false;
   }
 
-  const expected = createHmac("sha256", appSecret)
+  const expected = createHmac("sha256", appSecret.trim())
     .update(rawBody)
     .digest("hex");
   const received = signatureHeader.slice(7);

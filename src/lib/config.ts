@@ -3,18 +3,6 @@
 export const INSTAGRAM_USER_ID = "17841469544017471";
 export const INSTAGRAM_ACCESS_TOKEN = "IGAASpHQZCAuNFBZAGEzUWU5c1V4X3dvNmFRbHBrZATYtbWg0MTdzOFRQX1AxUDBacEkyeS14ckNnOExncjN4TUtuemYyQmxsMUtmZAWJBbzUxdHF6Njh5UEU4RHRxN3A1TkRINjB6N01Vak9BY1h1MG0tTHozUTJLbkNMODJZAcmhRdwZDZD";
 
-/** Meta App Dashboard > Webhooks > Verify Token 과 동일해야 함 */
-export const WEBHOOK_VERIFY_TOKEN = "instagram-dm-verify-2026";
-
-/** 두 번째 앱 — Callback: /api/webhook */
-export const META_APP_SECRET = "96475708c56ec230b132ac884150d295";
-
-/** 첫 번째 앱 — Callback: /api/webhook2 (Settings > Basic > App Secret) */
-export const META_APP_SECRET_APP1 = "96475708c56ec230b132ac884150d295";
-
-/** 첫 번째 앱 Webhooks Verify Token (같으면 WEBHOOK_VERIFY_TOKEN 과 동일하게) */
-export const WEBHOOK_VERIFY_TOKEN_APP1 = "instagram-dm-verify-2026";
-
 /** Instagram User 토큰(IG…) → graph.instagram.com | Page 토큰(EAA…) → graph.facebook.com */
 export const GRAPH_API_HOST = "graph.instagram.com";
 export const GRAPH_API_VERSION = "v22.0";
@@ -27,26 +15,31 @@ export const DM_MESSAGE = "test";
 
 const PLACEHOLDER = /^YOUR_/;
 
+/**
+ * Meta 첫 번째 앱 — Webhooks Callback: /api/webhook2
+ * Dashboard > Settings > Basic > App Secret (이 앱 것만!)
+ */
+export const META_APP_SECRET_APP1 = "96475708c56ec230b132ac884150d295";
+
+/** Meta Webhooks > Verify Token (첫 번째 앱 Dashboard와 동일) */
+export const WEBHOOK_VERIFY_TOKEN_APP1 = "instagram-dm-verify-2026";
+
 /** Instagram User 토큰(IG…) 여부 */
 export function usesInstagramLoginApi(): boolean {
   return INSTAGRAM_ACCESS_TOKEN.startsWith("IG");
 }
 
-/** DM 발송용 (두 앱 공통 Instagram 설정) */
+/** DM 발송용 Instagram 설정 */
 export function isAppConfigured(): boolean {
   return (
     Boolean(INSTAGRAM_USER_ID) &&
     Boolean(INSTAGRAM_ACCESS_TOKEN) &&
-    Boolean(WEBHOOK_VERIFY_TOKEN) &&
-    Boolean(META_APP_SECRET) &&
     !PLACEHOLDER.test(INSTAGRAM_USER_ID) &&
-    !PLACEHOLDER.test(INSTAGRAM_ACCESS_TOKEN) &&
-    !PLACEHOLDER.test(WEBHOOK_VERIFY_TOKEN) &&
-    !PLACEHOLDER.test(META_APP_SECRET)
+    !PLACEHOLDER.test(INSTAGRAM_ACCESS_TOKEN)
   );
 }
 
-/** /api/webhook2 (첫 번째 앱) 웹훅 검증용 */
+/** /api/webhook2 서명·검증용 (첫 번째 앱 App Secret) */
 export function isWebhookApp1Configured(): boolean {
   return (
     Boolean(WEBHOOK_VERIFY_TOKEN_APP1) &&

@@ -12,7 +12,7 @@ export type WebhookRouteConfig = {
   logTag: string;
   verifyToken: string;
   appSecret: string;
-  isConfigured: () => boolean;
+  isWebhookConfigured: () => boolean;
 };
 
 /** Meta Test 샘플 댓글 — 키워드 없어도 DM API 경로 테스트용 */
@@ -43,16 +43,16 @@ export async function handleWebhookPost(
   request: NextRequest,
   config: WebhookRouteConfig,
 ): Promise<NextResponse> {
-  const { logTag, appSecret, isConfigured } = config;
+  const { logTag, appSecret, isWebhookConfigured } = config;
   console.log(`[${logTag}] POST received`);
 
-  if (!isConfigured()) {
-    console.error(`[${logTag}] webhook config is not fully configured`);
-    return NextResponse.json({ error: "App not configured" }, { status: 503 });
+  if (!isWebhookConfigured()) {
+    console.error(`[${logTag}] webhook secret/token not configured`);
+    return NextResponse.json({ error: "Webhook not configured" }, { status: 503 });
   }
 
   if (!isAppConfigured()) {
-    console.error(`[${logTag}] DM config (config.ts) is not fully configured`);
+    console.error(`[${logTag}] DM config (Instagram token/ID) not configured`);
     return NextResponse.json({ error: "App not configured" }, { status: 503 });
   }
 
@@ -62,7 +62,9 @@ export async function handleWebhookPost(
   if (!verifyWebhookSignature(rawBody, signature, appSecret)) {
     console.error(
       `[${logTag}] Invalid signature — hasHeader:`,
-      Boolean(signature),rawBody
+      Boolean(signature),
+      `bodyBytes:`,
+      rawBody.length,
     );
     return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }

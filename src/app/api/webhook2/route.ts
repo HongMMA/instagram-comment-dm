@@ -12,18 +12,18 @@ import { NextRequest } from "next/server";
 
 export const runtime = "nodejs";
 
-/** Meta 첫 번째 앱 → Callback URL: .../api/webhook2 */
-const webhookApp1Config: WebhookRouteConfig = {
+/** Meta 첫 번째 앱 전용 — Callback: https://<도메인>/api/webhook2 */
+const config: WebhookRouteConfig = {
   logTag: "webhook2",
   verifyToken: WEBHOOK_VERIFY_TOKEN_APP1,
   appSecret: META_APP_SECRET_APP1,
-  isConfigured: isWebhookApp1Configured,
+  isWebhookConfigured: isWebhookApp1Configured,
 };
 
 export function GET(request: NextRequest) {
-  return handleWebhookGet(request, webhookApp1Config);
+  return handleWebhookGet(request, config);
 }
 
 export async function POST(request: NextRequest) {
-  return handleWebhookPost(request, webhookApp1Config);
+  return handleWebhookPost(request, config);
 }
