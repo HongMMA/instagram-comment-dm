@@ -30,19 +30,26 @@ export type WebhookPayload = {
   entry?: WebhookEntry[];
 };
 
-export function verifyWebhookSignature(
+function verifyHmac(
   rawBody: string,
-  signatureHeader: string | null,
+  signatureHeader: string,
   appSecret: string,
+  algorithm: "sha256" | "sha1",
 ): boolean {
-  if (!signatureHeader?.startsWith("sha256=")) {
+  const prefix = algorithm === "sha256" ? "sha256=" : "sha1=";
+  if (!signatureHeader.toLowerCase().startsWith(prefix)) {
     return false;
   }
 
-  const expected = createHmac("sha256", appSecret.trim())
+  const expected = createHmac(algorithm, appSecret.trim())
     .update(rawBody)
-    .digest("hex");
-  const received = signatureHeader.slice(7);
+    .digest("hex")
+    .toLowerCase();
+  const received = signatureHeader.slice(prefix.length).toLowerCase();
+
+  if (expected.length !== received.length) {
+    return false;
+  }
 
   try {
     return timingSafeEqual(
@@ -52,6 +59,30 @@ export function verifyWebhookSignature(
   } catch {
     return false;
   }
+}
+
+/** Meta는 sha256 hex를 대문자로 보내는 경우가 있어 소문자로 정규화 후 비교 */
+export function verifyWebhookSignature(
+  rawBody: string,
+  signatureHeader256: string | null,
+  appSecret: string,
+  signatureHeaderSha1?: string | null,
+): boolean {
+  if (
+    signatureHeader256 &&
+    verifyHmac(rawBody, signatureHeader256, appSecret, "sha256")
+  ) {
+    return true;
+  }
+
+  if (
+    signatureHeaderSha1 &&
+    verifyHmac(rawBody, signatureHeaderSha1, appSecret, "sha1")
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 export function extractCommentChanges(payload: WebhookPayload): CommentChange[] {

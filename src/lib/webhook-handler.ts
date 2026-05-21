@@ -57,14 +57,17 @@ export async function handleWebhookPost(
   }
 
   const rawBody = await request.text();
-  const signature = request.headers.get("x-hub-signature-256");
+  const signature256 = request.headers.get("x-hub-signature-256");
+  const signatureSha1 = request.headers.get("x-hub-signature");
 
-  if (!verifyWebhookSignature(rawBody, signature, appSecret)) {
+  if (!verifyWebhookSignature(rawBody, signature256, appSecret, signatureSha1)) {
     console.error(
-      `[${logTag}] Invalid signature — hasHeader:`,
-      Boolean(signature),
-      `bodyBytes:`,
-      rawBody.length,
+      `[${logTag}] Invalid signature — sha256:`,
+      Boolean(signature256),
+      `sha1:`,
+      Boolean(signatureSha1),
+      `data:`,
+      rawBody,
     );
     return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
