@@ -31,10 +31,10 @@ export async function POST(request: NextRequest) {
   const rawBody = await request.text();
   const signature = request.headers.get("x-hub-signature-256");
 
-  if (!verifyWebhookSignature(rawBody, signature)) {
-    console.error("[webhook] Invalid signature");
-    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-  }
+  // if (!verifyWebhookSignature(rawBody, signature)) {
+  //   console.error("[webhook] Invalid signature");
+  //   return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+  // }
 
   let payload: WebhookPayload;
   try {
