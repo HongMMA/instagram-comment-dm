@@ -50,6 +50,13 @@ npm run dev
    - **Verify Token**: `config.ts`의 `WEBHOOK_VERIFY_TOKEN`과 동일
    - **Fields**: `comments`
 4. 앱 **Live** 모드, Advanced Access(댓글 웹훅) 완료 후 테스트
+5. **실제 댓글 웹훅** — Dashboard 구독만으로는 부족할 수 있음. Instagram 계정에 앱 구독 API 호출:
+
+```bash
+curl -X POST "https://graph.instagram.com/v22.0/{INSTAGRAM_USER_ID}/subscribed_apps?subscribed_fields=comments&access_token={INSTAGRAM_ACCESS_TOKEN}"
+```
+
+`INSTAGRAM_USER_ID`는 `GET graph.instagram.com/me?fields=user_id` 응답의 `user_id` 값입니다.
 
 ## API 엔드포인트
 
