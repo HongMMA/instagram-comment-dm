@@ -4,6 +4,7 @@ import {
   GRAPH_API_VERSION,
   INSTAGRAM_ACCESS_TOKEN,
   INSTAGRAM_USER_ID,
+  isAppConfigured,
 } from "./config";
 
 export type SendPrivateReplyResult =
@@ -14,6 +15,10 @@ export async function sendPrivateReplyToComment(
   commentId: string,
   message: string = DM_MESSAGE,
 ): Promise<SendPrivateReplyResult> {
+  if (!isAppConfigured()) {
+    return { ok: false, error: "config.ts 설정이 완료되지 않았습니다." };
+  }
+
   const url = `https://${GRAPH_API_HOST}/${GRAPH_API_VERSION}/${INSTAGRAM_USER_ID}/messages`;
 
   const response = await fetch(url, {

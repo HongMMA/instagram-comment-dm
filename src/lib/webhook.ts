@@ -34,10 +34,6 @@ export function verifyWebhookSignature(
   rawBody: string,
   signatureHeader: string | null,
 ): boolean {
-  if (!META_APP_SECRET || META_APP_SECRET === "YOUR_META_APP_SECRET") {
-    return true;
-  }
-
   if (!signatureHeader?.startsWith("sha256=")) {
     return false;
   }

@@ -1,7 +1,9 @@
 import {
   DM_MESSAGE,
   GRAPH_API_HOST,
+  isAppConfigured,
   TRIGGER_PHRASE,
+  usesInstagramLoginApi,
   WEBHOOK_VERIFY_TOKEN,
 } from "@/lib/config";
 
@@ -35,25 +37,27 @@ export default function Home() {
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">설정할 값</h2>
+          <h2 className="text-lg font-semibold">설정 상태</h2>
           <p className="text-sm text-zinc-600">
             <code className="rounded bg-zinc-100 px-1">src/lib/config.ts</code>{" "}
-            파일에 아래 값을 넣으세요.
+            기준 —{" "}
+            {isAppConfigured() ? (
+              <span className="font-medium text-emerald-700">설정 완료</span>
+            ) : (
+              <span className="font-medium text-amber-700">미완료</span>
+            )}
           </p>
           <ul className="list-disc space-y-1 pl-5 text-sm text-zinc-700">
             <li>
-              <strong>INSTAGRAM_USER_ID</strong> — 비즈니스/크리에이터 계정 ID
+              API: <strong>{GRAPH_API_HOST}</strong> (
+              {usesInstagramLoginApi() ? "Instagram Login" : "Facebook Login"})
             </li>
             <li>
-              <strong>INSTAGRAM_ACCESS_TOKEN</strong> — Page 또는 Instagram User
-              액세스 토큰
+              Webhook Verify Token: <strong>{WEBHOOK_VERIFY_TOKEN}</strong>
             </li>
             <li>
-              <strong>WEBHOOK_VERIFY_TOKEN</strong> — Meta 웹훅 설정 시 사용할
-              임의 문자열 (현재: {WEBHOOK_VERIFY_TOKEN})
-            </li>
-            <li>
-              <strong>META_APP_SECRET</strong> — 앱 시크릿 (웹훅 서명 검증)
+              트리거: <strong>{TRIGGER_PHRASE}</strong> → DM:{" "}
+              <strong>{DM_MESSAGE}</strong>
             </li>
           </ul>
         </section>
@@ -61,12 +65,28 @@ export default function Home() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold">Meta Developers 설정</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm text-zinc-700">
-            <li>Instagram 비즈니스/크리에이터 계정 + Facebook 페이지 연결</li>
+            <li>Instagram 비즈니스/크리에이터 계정</li>
             <li>
-              권한: <code className="rounded bg-zinc-100 px-1">instagram_manage_comments</code>
-              ,{" "}
-              <code className="rounded bg-zinc-100 px-1">instagram_basic</code>{" "}
-              (Facebook Login 사용 시)
+              권한:{" "}
+              {usesInstagramLoginApi() ? (
+                <>
+                  <code className="rounded bg-zinc-100 px-1">
+                    instagram_business_manage_comments
+                  </code>
+                  ,{" "}
+                  <code className="rounded bg-zinc-100 px-1">
+                    instagram_business_basic
+                  </code>
+                </>
+              ) : (
+                <>
+                  <code className="rounded bg-zinc-100 px-1">
+                    instagram_manage_comments
+                  </code>
+                  ,{" "}
+                  <code className="rounded bg-zinc-100 px-1">instagram_basic</code>
+                </>
+              )}
             </li>
             <li>Webhooks → object: Instagram → field: comments 구독</li>
             <li>
@@ -82,10 +102,10 @@ export default function Home() {
 
         <section className="rounded-lg bg-violet-50 p-4 text-sm text-violet-900">
           <p>
-            API 호스트: <strong>{GRAPH_API_HOST}</strong>. Instagram Login만
-            쓰는 경우 config.ts에서{" "}
-            <code className="rounded bg-white/60 px-1">graph.instagram.com</code>
-            로 변경하세요.
+            Meta Webhooks Verify Token에{" "}
+            <code className="rounded bg-white/60 px-1">{WEBHOOK_VERIFY_TOKEN}</code>
+            을 입력하세요. Callback URL은 Vercel 배포 주소의{" "}
+            <code className="rounded bg-white/60 px-1">/api/webhook</code> 입니다.
           </p>
         </section>
       </main>

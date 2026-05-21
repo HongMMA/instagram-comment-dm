@@ -1,5 +1,5 @@
 import { sendPrivateReplyToComment } from "@/lib/instagram";
-import { WEBHOOK_VERIFY_TOKEN } from "@/lib/config";
+import { isAppConfigured, WEBHOOK_VERIFY_TOKEN } from "@/lib/config";
 import {
   extractCommentChanges,
   shouldSendDm,
@@ -23,6 +23,11 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  if (!isAppConfigured()) {
+    console.error("[webhook] config.ts is not fully configured");
+    return NextResponse.json({ error: "App not configured" }, { status: 503 });
+  }
+
   const rawBody = await request.text();
   const signature = request.headers.get("x-hub-signature-256");
 
