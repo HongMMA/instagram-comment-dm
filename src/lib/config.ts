@@ -1,7 +1,7 @@
 /** Meta Instagram API 설정 (src/lib/config.ts) */
 /** graph.me 의 user_id (Instagram professional account ID) */
 export const INSTAGRAM_USER_ID = "17841469544017471";
-export const INSTAGRAM_ACCESS_TOKEN = "IGAAUjzpZAseKNBZAGJ0UG4yeGd0VFBVNDdpeUlNZAjFkYm9ZAZAnNiWERVcGp3dGZA0WGNpZAWJjVnk3MlNocVZAVeWpzRWp4X3h0NTBIQXRYWktMbDNXZAE9sT3BweXg0NGR5VkhLSXlwYVVVUFBLdXVXZAW1lUXFvc3VlUlJ1Ui12ZAWpHUQZDZD";
+export const INSTAGRAM_ACCESS_TOKEN = "IGAASpHQZCAuNFBZAFlwNHdaSkR4Mk85ZAXExMGIzQlFJQk01bU9DY0hpQzVmTlB0NWF3RXNVZAWduV2pvLThOOTJRdUNla3djMDd5dk9JbEdFaDFEdEowcmFtc2RDcEd3YjU2cmQzeTR1MmlLc2k2UTBDWjEwLWhxNXYwdElYUUpyRQZDZD";
 
 /** Meta App Dashboard > Webhooks > Verify Token 과 동일해야 함 */
 export const WEBHOOK_VERIFY_TOKEN = "instagram-dm-verify-2026";
