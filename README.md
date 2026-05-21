@@ -44,8 +44,16 @@ npm run dev
 ## Vercel 배포
 
 1. GitHub에 푸시 후 Vercel에서 Import
-2. 배포 URL 확인 (예: `https://instagram-comment-dm.vercel.app`)
-3. Meta App Dashboard → Webhooks:
+2. 배포 URL 확인 (예: `https://instagram-comment-dm-two.vercel.app`)
+3. Meta **Settings → Basic** (Live/Publish 전 필수):
+
+| 필드 | 예시 값 |
+|------|---------|
+| App Domains | `instagram-comment-dm-two.vercel.app` |
+| Privacy Policy URL | `https://instagram-comment-dm-two.vercel.app/privacy` |
+| Site URL | `https://instagram-comment-dm-two.vercel.app/` |
+
+4. Meta App Dashboard → Webhooks:
    - **Callback URL**: `https://YOUR_DOMAIN/api/webhook`
    - **Verify Token**: `config.ts`의 `WEBHOOK_VERIFY_TOKEN`과 동일
    - **Fields**: `comments`

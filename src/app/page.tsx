@@ -105,7 +105,11 @@ export default function Home() {
             Meta Webhooks Verify Token에{" "}
             <code className="rounded bg-white/60 px-1">{WEBHOOK_VERIFY_TOKEN}</code>
             을 입력하세요. Callback URL은 Vercel 배포 주소의{" "}
-            <code className="rounded bg-white/60 px-1">/api/webhook</code> 입니다.
+            <code className="rounded bg-white/60 px-1">/api/webhook</code> 입니다.{" "}
+            <a href="/privacy" className="text-violet-700 underline">
+              개인정보처리방침
+            </a>
+            은 Live 전환·Basic 설정에 사용할 수 있습니다.
           </p>
         </section>
       </main>
