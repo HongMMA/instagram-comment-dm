@@ -90,12 +90,20 @@ export default function Home() {
             </li>
             <li>Webhooks → object: Instagram → field: comments 구독</li>
             <li>
-              Callback URL:{" "}
+              Callback URL (앱 2):{" "}
               <code className="rounded bg-zinc-100 px-1">
                 https://instagram-comment-dm-two.vercel.app/api/webhook
               </code>
             </li>
-            <li>Verify Token은 config.ts의 WEBHOOK_VERIFY_TOKEN과 동일하게</li>
+            <li>
+              Callback URL (앱 1):{" "}
+              <code className="rounded bg-zinc-100 px-1">
+                https://instagram-comment-dm-two.vercel.app/api/webhook2
+              </code>
+            </li>
+            <li>
+              Verify Token — 앱1: WEBHOOK_VERIFY_TOKEN_APP1 / 앱2: WEBHOOK_VERIFY_TOKEN
+            </li>
             <li>앱을 Live 모드로 전환 (실서비스 웹훅 수신)</li>
           </ul>
         </section>
@@ -105,7 +113,8 @@ export default function Home() {
             Meta Webhooks Verify Token에{" "}
             <code className="rounded bg-white/60 px-1">{WEBHOOK_VERIFY_TOKEN}</code>
             을 입력하세요. Callback URL은 Vercel 배포 주소의{" "}
-            <code className="rounded bg-white/60 px-1">/api/webhook</code> 입니다.{" "}
+            <code className="rounded bg-white/60 px-1">/api/webhook</code> 또는 앱1은{" "}
+            <code className="rounded bg-white/60 px-1">/api/webhook2</code> 입니다.{" "}
             <a href="/privacy" className="text-violet-700 underline">
               개인정보처리방침
             </a>

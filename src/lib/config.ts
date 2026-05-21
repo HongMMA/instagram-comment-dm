@@ -6,8 +6,14 @@ export const INSTAGRAM_ACCESS_TOKEN = "IGAASpHQZCAuNFBZAFlwNHdaSkR4Mk85ZAXExMGIz
 /** Meta App Dashboard > Webhooks > Verify Token 과 동일해야 함 */
 export const WEBHOOK_VERIFY_TOKEN = "instagram-dm-verify-2026";
 
-/** App Dashboard > Settings > Basic > App Secret (웹훅 서명 검증용) */
+/** 두 번째 앱 — Callback: /api/webhook */
 export const META_APP_SECRET = "96475708c56ec230b132ac884150d295";
+
+/** 첫 번째 앱 — Callback: /api/webhook2 (Settings > Basic > App Secret) */
+export const META_APP_SECRET_APP1 = "96475708c56ec230b132ac884150d295";
+
+/** 첫 번째 앱 Webhooks Verify Token (같으면 WEBHOOK_VERIFY_TOKEN 과 동일하게) */
+export const WEBHOOK_VERIFY_TOKEN_APP1 = "instagram-dm-verify-2026";
 
 /** Instagram User 토큰(IG…) → graph.instagram.com | Page 토큰(EAA…) → graph.facebook.com */
 export const GRAPH_API_HOST = "graph.instagram.com";
@@ -26,7 +32,7 @@ export function usesInstagramLoginApi(): boolean {
   return INSTAGRAM_ACCESS_TOKEN.startsWith("IG");
 }
 
-/** 필수 config 값이 모두 채워졌는지 */
+/** DM 발송용 (두 앱 공통 Instagram 설정) */
 export function isAppConfigured(): boolean {
   return (
     Boolean(INSTAGRAM_USER_ID) &&
@@ -37,5 +43,15 @@ export function isAppConfigured(): boolean {
     !PLACEHOLDER.test(INSTAGRAM_ACCESS_TOKEN) &&
     !PLACEHOLDER.test(WEBHOOK_VERIFY_TOKEN) &&
     !PLACEHOLDER.test(META_APP_SECRET)
+  );
+}
+
+/** /api/webhook2 (첫 번째 앱) 웹훅 검증용 */
+export function isWebhookApp1Configured(): boolean {
+  return (
+    Boolean(WEBHOOK_VERIFY_TOKEN_APP1) &&
+    Boolean(META_APP_SECRET_APP1) &&
+    !PLACEHOLDER.test(WEBHOOK_VERIFY_TOKEN_APP1) &&
+    !PLACEHOLDER.test(META_APP_SECRET_APP1)
   );
 }

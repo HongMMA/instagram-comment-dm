@@ -1,5 +1,5 @@
 import { createHmac, timingSafeEqual } from "crypto";
-import { META_APP_SECRET, TRIGGER_PHRASE } from "./config";
+import { TRIGGER_PHRASE } from "./config";
 
 export type CommentChange = {
   commentId: string;
@@ -33,12 +33,13 @@ export type WebhookPayload = {
 export function verifyWebhookSignature(
   rawBody: string,
   signatureHeader: string | null,
+  appSecret: string,
 ): boolean {
   if (!signatureHeader?.startsWith("sha256=")) {
     return false;
   }
 
-  const expected = createHmac("sha256", META_APP_SECRET)
+  const expected = createHmac("sha256", appSecret)
     .update(rawBody)
     .digest("hex");
   const received = signatureHeader.slice(7);

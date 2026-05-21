@@ -53,9 +53,10 @@ npm run dev
 | Privacy Policy URL | `https://instagram-comment-dm-two.vercel.app/privacy` |
 | Site URL | `https://instagram-comment-dm-two.vercel.app/` |
 
-4. Meta App Dashboard → Webhooks:
-   - **Callback URL**: `https://YOUR_DOMAIN/api/webhook`
-   - **Verify Token**: `config.ts`의 `WEBHOOK_VERIFY_TOKEN`과 동일
+4. Meta App Dashboard → Webhooks (앱이 두 개면 URL 분리):
+   - **두 번째 앱**: `https://YOUR_DOMAIN/api/webhook` + `META_APP_SECRET`
+   - **첫 번째 앱**: `https://YOUR_DOMAIN/api/webhook2` + `META_APP_SECRET_APP1`
+   - **Verify Token**: 각 앱에 `WEBHOOK_VERIFY_TOKEN` / `WEBHOOK_VERIFY_TOKEN_APP1`
    - **Fields**: `comments`
 4. 앱 **Live** 모드, Advanced Access(댓글 웹훅) 완료 후 테스트
 5. **실제 댓글 웹훅** — Dashboard 구독만으로는 부족할 수 있음. Instagram 계정에 앱 구독 API 호출:
