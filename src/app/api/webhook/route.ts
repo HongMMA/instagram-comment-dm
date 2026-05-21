@@ -39,7 +39,12 @@ export async function POST(request: NextRequest) {
   const rawBody = await request.text();
   const signature = request.headers.get("x-hub-signature-256");
 
-  
+  if (!verifyWebhookSignature(rawBody, signature)) {
+    console.error("[webhook] Invalid signature — hasHeader:", Boolean(signature), rawBody);
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+  }
+
+  console.log("[webhook] signature OK");
 
   let payload: WebhookPayload;
   try {
@@ -50,14 +55,6 @@ export async function POST(request: NextRequest) {
   }
 
   const comments = extractCommentChanges(payload);
-
-  if (!verifyWebhookSignature(rawBody, signature)) {
-    console.error("[webhook] Invalid signature — hasHeader:", Boolean(signature), comments);
-    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-  }
-
-  console.log("[webhook] signature OK");
-
   console.log(
     `[webhook] parsed object=${payload.object ?? "unknown"} comment_events=${comments.length}`,
   );
