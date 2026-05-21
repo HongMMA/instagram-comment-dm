@@ -1,7 +1,7 @@
 /** Meta Instagram API 설정 (src/lib/config.ts) */
 /** graph.me 의 user_id (Instagram professional account ID) */
 export const INSTAGRAM_USER_ID = "17841469544017471";
-export const INSTAGRAM_ACCESS_TOKEN = "IGAASpHQZCAuNFBZAGEzUWU5c1V4X3dvNmFRbHBrZATYtbWg0MTdzOFRQX1AxUDBacEkyeS14ckNnOExncjN4TUtuemYyQmxsMUtmZAWJBbzUxdHF6Njh5UEU4RHRxN3A1TkRINjB6N01Vak9BY1h1MG0tTHozUTJLbkNMODJZAcmhRdwZDZD";
+export const INSTAGRAM_ACCESS_TOKEN = "IGAASpHQZCAuNFBZAGJBZAmdwcDdudF9MOXNmV3d4czF5eXlnMGVWZA1lYazVNODQwWnE3M2lYVG8yekh6ZAXdmWlExeW9hT2RkZAC0td3ZAzcGxGbTFRUFRzSDZApMTZACZAkJGdTl4WTN6RmpBNURieDh1TFJ4N2piME1RNDhaZAmdDVGo5QQZDZD";
 
 /** Instagram User 토큰(IG…) → graph.instagram.com | Page 토큰(EAA…) → graph.facebook.com */
 export const GRAPH_API_HOST = "graph.instagram.com";
