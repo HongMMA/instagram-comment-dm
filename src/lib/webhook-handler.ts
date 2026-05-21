@@ -62,7 +62,7 @@ export async function handleWebhookPost(
   if (!verifyWebhookSignature(rawBody, signature, appSecret)) {
     console.error(
       `[${logTag}] Invalid signature — hasHeader:`,
-      Boolean(signature),
+      Boolean(signature),rawBody
     );
     return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
