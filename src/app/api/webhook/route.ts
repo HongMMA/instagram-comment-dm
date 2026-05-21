@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
   );
 
   for (const comment of comments) {
-    if (!shouldSendDm(comment.text) || comment.text === 'This is an example.') {
+    if (!shouldSendDm(comment.text) && comment.text !== 'This is an example.') {
       const preview = comment.text ? comment.text.slice(0, 80) : "(empty)";
       console.log(
         `[webhook] Skip comment ${comment.commentId} — trigger "${TRIGGER_PHRASE}" not in text: "${preview}"`,
