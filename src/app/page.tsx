@@ -92,7 +92,7 @@ export default function Home() {
             <li>
               Callback URL:{" "}
               <code className="rounded bg-zinc-100 px-1">
-                https://your-domain.vercel.app/api/webhook
+                https://instagram-comment-dm-two.vercel.app/api/webhook
               </code>
             </li>
             <li>Verify Token은 config.ts의 WEBHOOK_VERIFY_TOKEN과 동일하게</li>
