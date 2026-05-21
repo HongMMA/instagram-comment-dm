@@ -7,7 +7,7 @@ export const INSTAGRAM_ACCESS_TOKEN = "IGAASpHQZCAuNFBZAFlwNHdaSkR4Mk85ZAXExMGIz
 export const WEBHOOK_VERIFY_TOKEN = "instagram-dm-verify-2026";
 
 /** App Dashboard > Settings > Basic > App Secret (웹훅 서명 검증용) */
-export const META_APP_SECRET = "afc138b1f0a800bd617407d4f36fb248";
+export const META_APP_SECRET = "69b86bc37595e95333ab83bed0a3fe17";
 
 /** Instagram User 토큰(IG…) → graph.instagram.com | Page 토큰(EAA…) → graph.facebook.com */
 export const GRAPH_API_HOST = "graph.instagram.com";
